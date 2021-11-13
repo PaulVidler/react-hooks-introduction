@@ -1,3 +1,5 @@
+# Just some basic hooks practice, probably wasn't quite what I was looking for, but good to practice basics I guess..... Putting in my 10,000 hours.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
