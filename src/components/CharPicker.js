@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './CharPicker.css';
 
@@ -7,11 +7,11 @@ const CharPicker = (props) => {
   const [loadedChars,setLoadedChars] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  state = { characters: [], isLoading: false };
-
-  useEffect() {
-    this.setState({ isLoading: true });
-    fetch('https://swapi.co/api/people')
+  useEffect(()=> {
+    console.log('From useEffect');
+    setIsLoading(true);
+    // fetch('https://swapi.co/api/people') // no longer works, found the correct link
+    fetch('https://swapi.dev/api/people')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch.');
@@ -20,19 +20,19 @@ const CharPicker = (props) => {
       })
       .then(charData => {
         const selectedCharacters = charData.results.slice(0, 5);
-        this.setState({
-          characters: selectedCharacters.map((char, index) => ({
+        setIsLoading(false);
+        setLoadedChars(selectedCharacters.map((char, index) => ({
             name: char.name,
             id: index + 1
-          })),
-          
-        });
+          })));
+
         setIsLoading(false);
       })
       .catch(err => {
         console.log(err);
+        setIsLoading(false);
       });
-  }
+  }, []);
 
     let content = <p>Loading characters...</p>;
 
